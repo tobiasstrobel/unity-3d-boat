@@ -22,7 +22,13 @@ Check the whole development story at Medium: https://vlytsus.medium.com/my-saili
 
 Branch `boatware` adds `Assets/Boatware/SimBridge.cs`. It listens on `127.0.0.1:8767` for one JSON object per line and publishes telemetry the same way. The sailing model in `BoatForces` is unchanged.
 
-`upstream` is `vlytsus/unity-3d-boat`. Pull new upstream work onto `boatware` with `git fetch upstream` and `git merge upstream/main`. Push this fork with `git push origin boatware`.
+`origin` is this fork. Add the original project once if it is missing:
+
+```bash
+git remote add upstream https://github.com/vlytsus/unity-3d-boat.git
+```
+
+Pull new upstream work onto `boatware` with `git fetch upstream` and `git merge upstream/main`. Push this fork with `git push origin boatware`.
 
 Windowed macOS player (Unity **2019.4.11f1**):
 
