@@ -170,8 +170,6 @@ public class BoatForces : IYachtControls
         float currentProjection = 0;
         int resultAngle = 0;
         float windVelocity = apparentWind.magnitude;
-        int sailAngleGrad = -(int)Vector3.SignedAngle(sail.transform.forward, transform.forward, Vector3.up);          
-        int resultApa = 0;
 
         for(int i = -maxSailAngle+20; i < maxSailAngle-20; i+=3) {
             
@@ -188,12 +186,10 @@ public class BoatForces : IYachtControls
             if(resultMagnitude >  maxProjection){
                 maxProjection = resultMagnitude;
                 resultAngle = i;
-                resultApa = sailAppraentAngleGrad;
             }           
         }
 
         setSailJointLimits(sail, resultAngle);
-        Debug.Log ("resultAngle=" +resultAngle+ " sailAngleGrad=" + sailAngleGrad + " maxProjection=" + maxProjection);
     }
 
     Vector3 calculateLiftDirection(Vector3 apparentWind, Vector3 sailVector){
@@ -232,6 +228,10 @@ public class BoatForces : IYachtControls
         float sideSpeed = Vector3.Dot(getVelocity(), transform.right);
         float dargCoeficient = 0.25f; //TODO
         yachtRigidbody.AddForce(-getVelocity().normalized * sideSpeed * sideSpeed * waterRho * dargCoeficient);
+        // The keel force is only proportional to sideslip squared, so it barely
+        // acts until the hull is already sliding. A linear term keeps leeway
+        // to a few degrees instead of tens.
+        yachtRigidbody.AddForce(-transform.right * sideSpeed * 1800f);
     }
 
     float calcualteFrictionalForce() {
@@ -250,9 +250,14 @@ public class BoatForces : IYachtControls
         return Fr;
     }
 
+    // The lift polynomials peak near 1.5. On this hull the float cubes cannot
+    // right that much sail force in 12 kn, so the boat settles near 45° of heel.
+    // Scale the aerodynamic force down so a 12 kn breeze is a normal heel.
+    const float sailForceScale = 0.33f;
+
     float calculateSailForce(float coeficient, float velocity, float sailArea) {
         // Fs = 1/2 * rho * V * V * S * C
-        float Fr = 0.5f * airRho * velocity * velocity * sailArea * coeficient;
+        float Fr = 0.5f * airRho * velocity * velocity * sailArea * coeficient * sailForceScale;
         return Fr;
     }
 

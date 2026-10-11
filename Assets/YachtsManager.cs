@@ -19,6 +19,8 @@ public class YachtsManager : MonoBehaviour
     private int minimalDistance = 5;
     
     void Start() {
+        // The demo clones a second yacht at the start. boatware drives one hull.
+        if (SimBridge.Instance != null) return;
         secondYacht = cloneBoat(yachtPrefab, "SecondYacht");
     }
 

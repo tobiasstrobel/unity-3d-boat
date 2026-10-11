@@ -30,7 +30,7 @@ git remote add upstream https://github.com/vlytsus/unity-3d-boat.git
 
 Pull new upstream work onto `boatware` with `git fetch upstream` and `git merge upstream/main`. Push this fork with `git push origin boatware`.
 
-Windowed macOS player (Unity **2019.4.11f1**):
+Windowed macOS player (Unity **6000.3.13f1** on this branch; upstream `main` stays on 2019.4.11f1):
 
 ```bash
 Unity -batchmode -quit -projectPath . -executeMethod BoatwareBuild.BuildMacPlayer -logFile -

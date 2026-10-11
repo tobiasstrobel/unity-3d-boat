@@ -14,7 +14,9 @@ public static class BoatwareBuild
         PlayerSettings.defaultScreenHeight = 720;
         PlayerSettings.resizableWindow = true;
         PlayerSettings.runInBackground = true;
+#if !UNITY_6000_0_OR_NEWER
         PlayerSettings.displayResolutionDialog = ResolutionDialogSetting.Disabled;
+#endif
 
         var output = Path.Combine(Directory.GetCurrentDirectory(), "Builds/boatware-sim.app");
         var options = new BuildPlayerOptions

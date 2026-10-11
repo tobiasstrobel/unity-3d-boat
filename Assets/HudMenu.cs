@@ -21,25 +21,42 @@ public class HudMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (boat == null) return;
         Rigidbody bootRb = boat.GetComponent<Rigidbody>();
-        status.text = ""+System.Math.Round(bootRb.velocity.magnitude, 2);        
-        
-        Vector3 indDirection = new Vector3();
-        indDirection.z = boat.transform.eulerAngles.y - wind.transform.eulerAngles.y;
-        twaIndicator.localEulerAngles = indDirection;
+        if (bootRb == null) return;
 
-        int apparentWindAngleGrad = (int)Vector3.Angle(boat.transform.forward, -awaVector);
-        int directionAngle = (int)Vector3.Angle(boat.transform.forward, bootRb.velocity);
-        
-        if(indDirection.z < 180){
-            apparentWindAngleGrad = 180 - apparentWindAngleGrad;
-        } else {
-            apparentWindAngleGrad = 180 + apparentWindAngleGrad;
-            directionAngle = 360 - directionAngle;
-        }
-        dirIndicator.eulerAngles = new Vector3(0, 0, directionAngle);
-        awaIndicator.eulerAngles = new Vector3(0, 0, apparentWindAngleGrad);
-        speedIndicator.eulerAngles = new Vector3(0, 0, 120 - bootRb.velocity.magnitude*24);
+        float speed = bootRb.velocity.magnitude;
+        if (status != null) status.text = speed.ToString("0.00");
+
+        Vector3 ahead = boat.transform.forward;
+        ahead.y = 0f;
+
+        // Wind-object forward is the direction the air moves. The needles show
+        // where the wind comes from, on the same scale. The old apparent-wind
+        // needle used an unsigned angle and the true-wind side, so the two
+        // marks diverged even when the boat was stopped.
+        float twa = WindFromAngle(ahead, wind != null ? -wind.transform.forward : ahead);
+        float awa = awaVector.sqrMagnitude > 0.05f ? WindFromAngle(ahead, -awaVector) : twa;
+
+        if (twaIndicator != null)
+            twaIndicator.localEulerAngles = new Vector3(0f, 0f, -twa - 180f);
+        if (awaIndicator != null)
+            awaIndicator.localEulerAngles = new Vector3(0f, 0f, -awa - 180f);
+
+        Vector3 vel = bootRb.velocity;
+        vel.y = 0f;
+        float drift = vel.sqrMagnitude > 0.25f ? Vector3.SignedAngle(ahead, vel, Vector3.up) : 0f;
+        if (dirIndicator != null)
+            dirIndicator.localEulerAngles = new Vector3(0f, 0f, -drift);
+        if (speedIndicator != null)
+            speedIndicator.localEulerAngles = new Vector3(0f, 0f, 120f - speed * 24f);
+    }
+
+    static float WindFromAngle(Vector3 ahead, Vector3 fromDirection)
+    {
+        fromDirection.y = 0f;
+        if (ahead.sqrMagnitude < 0.0001f || fromDirection.sqrMagnitude < 0.0001f) return 0f;
+        return Vector3.SignedAngle(ahead, fromDirection, Vector3.up);
     }
 
     public void onAwaAngleChange(Vector3 vector) {
