@@ -23,31 +23,34 @@ public class YachtsManager : MonoBehaviour
     }
 
     void Update() {
+        bool scripted = SimBridge.Instance != null && SimBridge.Instance.Mode == SimMode.Scripted;
+        if (!scripted)
+        {
+            followTarget();
 
-        followTarget();
-        
-        if (Input.GetKey(KeyCode.A)){
-            yachtControls.rotateRudder(1);
-        }
+            if (Input.GetKey(KeyCode.A)){
+                yachtControls.rotateRudder(1);
+            }
 
-        if (Input.GetKey(KeyCode.D)) {
-            yachtControls.rotateRudder(-1);
-        }
+            if (Input.GetKey(KeyCode.D)) {
+                yachtControls.rotateRudder(-1);
+            }
 
-        if (Input.GetKey(KeyCode.Q)) {
-            yachtControls.rotateHeadSail(1);
-        }
+            if (Input.GetKey(KeyCode.Q)) {
+                yachtControls.rotateHeadSail(1);
+            }
 
-        if (Input.GetKey(KeyCode.E)) {
-            yachtControls.rotateHeadSail(-1);
-        }
+            if (Input.GetKey(KeyCode.E)) {
+                yachtControls.rotateHeadSail(-1);
+            }
 
-        if (Input.GetKey(KeyCode.Z)) {
-            yachtControls.rotateMainSail(1);
-        }
+            if (Input.GetKey(KeyCode.Z)) {
+                yachtControls.rotateMainSail(1);
+            }
 
-        if (Input.GetKey(KeyCode.C)) {
-            yachtControls.rotateMainSail(-1);
+            if (Input.GetKey(KeyCode.C)) {
+                yachtControls.rotateMainSail(-1);
+            }
         }
 
         moveWaterAreaArroundShip();
@@ -63,17 +66,7 @@ public class YachtsManager : MonoBehaviour
     }
 
     private void followTarget() {
-        Vector3 yachtApparentWind = yachtControls.getApparentWindVector();
-        
-        /*
-        int windToBoatAngle = (int)Vector3.Angle(yachtPrefab.transform.forward, yachtApparentWind);
-        if(windToBoatAngle < -40){
-            limits.min += windToBoatAngle;
-            limits.max = limits.min + 30;
-        } else if (windToBoatAngle > 40) {
-            limits.max += windToBoatAngle;
-            limits.min = limits.max - 30;
-        }*/
+        if (yachtPrefab == null || yachtControls == null || target == null || target.Length == 0) return;
 
         float angle = calcAngleToWaypoint();
         if(angle > 10){
@@ -107,7 +100,7 @@ public class YachtsManager : MonoBehaviour
     }
 
     private void moveWaterAreaArroundShip() {
-        if(waterArround != null) {
+        if(waterArround != null && yachtPrefab != null) {
             waterArround.transform.position = new Vector3(yachtPrefab.transform.position.x + 12, waterArround.transform.position.y, yachtPrefab.transform.position.z + 12);
         }
     }

@@ -17,3 +17,19 @@ In this project I would like to implement most important forces requred to simul
 * Hull lateral resistance
 
 Check the whole development story at Medium: https://vlytsus.medium.com/my-sailing-story-unity-game-development-part-1-6b6c5e7f3844
+
+## Boatware bridge
+
+Branch `boatware` adds `Assets/Boatware/SimBridge.cs`. It listens on `127.0.0.1:8767` for one JSON object per line and publishes telemetry the same way. The sailing model in `BoatForces` is unchanged.
+
+`upstream` is `vlytsus/unity-3d-boat`. Pull new upstream work onto `boatware` with `git fetch upstream` and `git merge upstream/main`. Push this fork with `git push origin boatware`.
+
+Windowed macOS player (Unity **2019.4.11f1**):
+
+```bash
+Unity -batchmode -quit -projectPath . -executeMethod BoatwareBuild.BuildMacPlayer -logFile -
+```
+
+The app is written to `Builds/boatware-sim.app` (gitignored). It opens `GameScene` directly.
+
+Commands: `set_environment`, `set_origin`, `set_waypoints`, `set_helm`, `set_mode` (`scripted` or `interactive`), `reset`, `pause`, `resume`, `set_time_scale`. In `scripted` mode the keyboard and waypoint autopilot in `YachtsManager` are left alone so an external helm can drive the rudder.
