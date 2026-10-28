@@ -96,8 +96,13 @@ public class BoatForces : IYachtControls
         Vector3 apparentWind = getApparentWindVector();
         hudMenu.onAwaAngleChange(apparentWind);
 
-        rotateToOptimalSailAngle(headSail, apparentWind, headSailAreaM2);
-        rotateToOptimalSailAngle(mainSail, apparentWind, mainSailAreaM2);
+        // Scripted mode sheets for best drive. Interactive mode keeps the
+        // hinge limits last set by the keyboard (or the initial leeward ease).
+        if (SimBridge.Instance == null || SimBridge.Instance.Mode == SimMode.Scripted)
+        {
+            rotateToOptimalSailAngle(headSail, apparentWind, headSailAreaM2);
+            rotateToOptimalSailAngle(mainSail, apparentWind, mainSailAreaM2);
+        }
 
         addSailForce(headSail, apparentWind, headSailAreaM2);
         addSailForce(mainSail, apparentWind, mainSailAreaM2);
@@ -134,6 +139,19 @@ public class BoatForces : IYachtControls
 
     void setSailJointLimits(GameObject sail, int angle) {
         setSailJointLimits(sail, angle-0.1f, angle+0.1f);
+    }
+
+    /// <summary>
+    /// Hold both sails about 40° to leeward so the sheets show area from astern
+    /// before the sailor touches Q/E or Z/C. Wind blowing toward starboard
+    /// eases the sails to starboard.
+    /// </summary>
+    public void sheetToLeeward()
+    {
+        float side = Vector3.Dot(getApparentWindVector(), transform.right);
+        int angle = side >= 0f ? 40 : -40;
+        if (headSail != null) setSailJointLimits(headSail, angle);
+        if (mainSail != null) setSailJointLimits(mainSail, angle);
     }
 
     void setSailJointLimits(GameObject sail, float minAngle, float maxAngle) {

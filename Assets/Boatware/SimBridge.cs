@@ -292,7 +292,12 @@ public class SimBridge : MonoBehaviour
                 break;
             case "set_mode":
                 Mode = cmd.mode == "scripted" ? SimMode.Scripted : SimMode.Interactive;
-                if (Mode == SimMode.Interactive) Helm = 0;
+                if (Mode == SimMode.Interactive)
+                {
+                    Helm = 0;
+                    ResolveYacht();
+                    if (yacht != null) yacht.sheetToLeeward();
+                }
                 break;
             case "reset":
                 ResetBoat(cmd.heading_deg, cmd.speed_mps);

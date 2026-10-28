@@ -119,13 +119,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4918902270325831454}
-  m_LocalRotation: {x: 0.0018498189, y: 0.98979884, z: 0.14187412, w: -0.012905445}
-  m_LocalPosition: {x: -0.151, y: 0.51, z: -4.83}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: 0, y: 0.12, z: -5.3}
   m_LocalScale: {x: 0.3, y: 0.2, z: 0.3}
   m_Children: []
   m_Father: {fileID: 4918902271680101190}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: -16.314001, y: -538.506, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!198 &4918902270325831449
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -754,7 +754,7 @@ ParticleSystem:
     serializedVersion: 6
     enabled: 1
     type: 18
-    angle: 25
+    angle: 4
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 1
@@ -838,7 +838,7 @@ ParticleSystem:
     m_TextureBilinearFiltering: 0
     randomDirectionAmount: 0
     sphericalDirectionAmount: 0
-    randomPositionAmount: 1
+    randomPositionAmount: 0
     radius:
       value: 1
       mode: 0
@@ -4825,7 +4825,7 @@ ParticleSystemRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_RenderMode: 1
+  m_RenderMode: 2
   m_SortMode: 0
   m_MinParticleSize: 0
   m_MaxParticleSize: 0.5
@@ -4873,13 +4873,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4918902270400543591}
-  m_LocalRotation: {x: 0.054888595, y: 0.86205167, z: -0.033586454, w: -0.5027188}
-  m_LocalPosition: {x: -1.93, y: 0.69, z: -3}
+  m_LocalRotation: {x: 0, y: 0.9659258, z: 0, w: -0.25881904}
+  m_LocalPosition: {x: -2.15, y: 0.12, z: -4.2}
   m_LocalScale: {x: 0.3, y: 0.2, z: 0.3}
   m_Children: []
   m_Father: {fileID: 4918902271680101190}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0.156, y: -479.491, z: 7.3770003}
+  m_LocalEulerAnglesHint: {x: 0, y: 210, z: 0}
 --- !u!198 &4918902270400543586
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -5508,7 +5508,7 @@ ParticleSystem:
     serializedVersion: 6
     enabled: 1
     type: 18
-    angle: 25
+    angle: 4
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 1
@@ -5592,7 +5592,7 @@ ParticleSystem:
     m_TextureBilinearFiltering: 0
     randomDirectionAmount: 0
     sphericalDirectionAmount: 0
-    randomPositionAmount: 1
+    randomPositionAmount: 0
     radius:
       value: 1
       mode: 0
@@ -9579,7 +9579,7 @@ ParticleSystemRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_RenderMode: 1
+  m_RenderMode: 2
   m_SortMode: 0
   m_MinParticleSize: 0
   m_MaxParticleSize: 1
@@ -9892,13 +9892,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4918902271412434664}
-  m_LocalRotation: {x: 0.057955142, y: 0.8893844, z: 0.027964586, w: 0.45260867}
-  m_LocalPosition: {x: 1.44, y: 0.69, z: -3}
+  m_LocalRotation: {x: 0, y: 0.9659258, z: 0, w: 0.25881904}
+  m_LocalPosition: {x: 2.05, y: 0.12, z: -4.2}
   m_LocalScale: {x: 0.3, y: 0.2, z: 0.3}
   m_Children: []
   m_Father: {fileID: 4918902271680101190}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0.156, y: -593.933, z: 7.3770003}
+  m_LocalEulerAnglesHint: {x: 0, y: 150, z: 0}
 --- !u!198 &4918902271412434667
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -10527,7 +10527,7 @@ ParticleSystem:
     serializedVersion: 6
     enabled: 1
     type: 18
-    angle: 25
+    angle: 4
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 1
@@ -10611,7 +10611,7 @@ ParticleSystem:
     m_TextureBilinearFiltering: 0
     randomDirectionAmount: 0
     sphericalDirectionAmount: 0
-    randomPositionAmount: 1
+    randomPositionAmount: 0
     radius:
       value: 1
       mode: 0
@@ -14598,7 +14598,7 @@ ParticleSystemRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_RenderMode: 1
+  m_RenderMode: 2
   m_SortMode: 0
   m_MinParticleSize: 0
   m_MaxParticleSize: 1
