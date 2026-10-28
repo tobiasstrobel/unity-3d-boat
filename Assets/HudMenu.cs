@@ -26,7 +26,10 @@ public class HudMenu : MonoBehaviour
         if (bootRb == null) return;
 
         float speed = bootRb.velocity.magnitude;
-        if (status != null) status.text = speed.ToString("0.00");
+        // The dial and the HMI both read speed over ground in knots.
+        const float MpsToKnots = 1f / 0.514444f;
+        float knots = speed * MpsToKnots;
+        if (status != null) status.text = knots.ToString("0.0");
 
         Vector3 ahead = boat.transform.forward;
         ahead.y = 0f;
@@ -49,7 +52,7 @@ public class HudMenu : MonoBehaviour
         if (dirIndicator != null)
             dirIndicator.localEulerAngles = new Vector3(0f, 0f, -drift);
         if (speedIndicator != null)
-            speedIndicator.localEulerAngles = new Vector3(0f, 0f, 120f - speed * 24f);
+            speedIndicator.localEulerAngles = new Vector3(0f, 0f, 120f - knots * 24f);
     }
 
     static float WindFromAngle(Vector3 ahead, Vector3 fromDirection)
